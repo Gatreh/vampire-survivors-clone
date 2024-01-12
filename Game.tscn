@@ -1,0 +1,145 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwxrhcby3fb83"]
+
+[ext_resource type="PackedScene" uid="uid://b1bjgpxmfx8kp" path="res://Player.tscn" id="1_6boc0"]
+[ext_resource type="Script" path="res://Game.gd" id="1_httbb"]
+[ext_resource type="PackedScene" uid="uid://fjf4p4x84qg2" path="res://Tree.tscn" id="2_tmq84"]
+
+[sub_resource type="Curve2D" id="Curve2D_5gefv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1775, -303, 0, 0, 0, 0, 370, -297, 0, 0, 0, 0, 367, 1011, 0, 0, 0, 0, -1769, 1002, 0, 0, 0, 0, -1772, -301)
+}
+point_count = 5
+
+[sub_resource type="Theme" id="Theme_572jq"]
+Button/colors/icon_hover_color = Color(0.27451, 0.27451, 0.27451, 1)
+Button/colors/icon_normal_color = Color(0.156863, 0.156863, 0.156863, 1)
+
+[node name="Game" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_httbb")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.258824, 0.639216, 0.25098, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_6boc0")]
+position = Vector2(948, 508)
+
+[node name="OutsideCamera" type="Path2D" parent="Player"]
+position = Vector2(739, -345)
+curve = SubResource("Curve2D_5gefv")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/OutsideCamera"]
+unique_name_in_owner = true
+position = Vector2(-1775, -303)
+rotation = 0.0027972
+
+[node name="TimerLabel" type="Label" parent="Player"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -53.0
+offset_top = -476.0
+offset_right = 85.0
+offset_bottom = -434.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+
+[node name="WorldObjects" type="Node" parent="."]
+
+[node name="Tree" parent="WorldObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(351, 750)
+
+[node name="Tree2" parent="WorldObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(291, 268)
+
+[node name="Tree3" parent="WorldObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(332, 299)
+
+[node name="Tree4" parent="WorldObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(588, 237)
+
+[node name="Tree5" parent="WorldObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(617, 465)
+
+[node name="Tree7" parent="WorldObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1000, 299)
+
+[node name="Tree8" parent="WorldObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1200, 422)
+
+[node name="Tree6" parent="WorldObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(907, 791)
+
+[node name="Tree9" parent="WorldObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1687, 163)
+
+[node name="Tree10" parent="WorldObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1611, 698)
+
+[node name="Tree11" parent="WorldObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1300, 953)
+
+[node name="Stopwatch" type="Timer" parent="."]
+autostart = true
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="Label" type="Label" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -138.0
+offset_top = -168.0
+offset_right = 138.0
+offset_bottom = -101.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "GAME OVER"
+
+[node name="Button" type="Button" parent="GameOver/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -40.0
+offset_right = 113.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_572jq")
+theme_override_font_sizes/font_size = 40
+text = "RESTART"
+
+[connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
+[connection signal="timeout" from="Stopwatch" to="." method="_on_stopwatch_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="GameOver/ColorRect/Button" to="." method="_on_button_pressed"]
