@@ -6,6 +6,8 @@ extends CharacterBody2D
 const SPEED = 600
 const DAMAGE = 2
 
+const SMOKE_SCENE = preload("res://smoke_explosion/smoke_explosion.tscn")
+
 var health = 5
 
 func _ready():
@@ -21,7 +23,6 @@ func TakeDamage(damage):
 	mob.play_hurt()
 	if health == 0:
 		queue_free()
-		const SMOKE_SCENE = preload("res://smoke_explosion/smoke_explosion.tscn")
 		var smoke = SMOKE_SCENE.instantiate()
 		get_parent().add_child(smoke)
 		smoke.global_position = Vector2(global_position.x, global_position.y - 75)

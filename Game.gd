@@ -8,6 +8,9 @@ extends Node2D
 var timeSeconds = 0
 var timeMinutes = 0
 
+func _ready():
+	updateTimer()
+
 #region Game over handling
 func _on_player_health_depleted():
 	%GameOver.visible = true
@@ -41,4 +44,9 @@ func _on_stopwatch_timeout():
 	if timeSeconds == 60:
 		timeSeconds = 0
 		timeMinutes += 1
-	%TimerLabel.text = str(timeMinutes) + ":" + str(timeSeconds)
+	updateTimer()
+
+func updateTimer():
+	%TimerLabel.text = (
+		"0" + str(timeMinutes) if timeMinutes < 10 else str(timeMinutes)) + ":" + (
+		"0" + str(timeSeconds) if timeSeconds < 10 else str(timeSeconds))

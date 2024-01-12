@@ -1,8 +1,8 @@
 extends Area2D
 
 #Keep as var so I can modify the bullets later with upgrades
-var speed = 800
-var range = 1200
+var speed = null
+var range = null
 var damage = 1
 var travelDistance = 0
 

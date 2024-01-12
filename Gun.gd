@@ -10,6 +10,8 @@ func _physics_process(delta):
 func Shoot():
 	const BULLET = preload("res://Bullet.tscn")
 	var new_bullet = BULLET.instantiate()
+	new_bullet.speed = 800
+	new_bullet.range = 1200
 	new_bullet.global_position = %ShootingPoint.global_position
 	new_bullet.global_rotation_degrees = %ShootingPoint.global_rotation_degrees
 	%ShootingPoint.add_child(new_bullet)

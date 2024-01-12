@@ -38,15 +38,17 @@ unique_name_in_owner = true
 position = Vector2(-1775, -303)
 rotation = 0.0027972
 
-[node name="TimerLabel" type="Label" parent="Player"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Player"]
+
+[node name="TimerLabel" type="Label" parent="Player/CanvasLayer"]
 unique_name_in_owner = true
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -53.0
-offset_top = -476.0
-offset_right = 85.0
-offset_bottom = -434.0
+offset_left = -65.0
+offset_top = 32.0
+offset_right = 73.0
+offset_bottom = 74.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
@@ -96,6 +98,7 @@ autostart = true
 [node name="GameOver" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 process_mode = 3
+layer = 20
 visible = false
 
 [node name="ColorRect" type="ColorRect" parent="GameOver"]
