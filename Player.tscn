@@ -28,13 +28,29 @@ radius = 37.054
 platform_floor_layers = 4294967040
 script = ExtResource("1_8u6if")
 
-[node name="HealthBar" type="ProgressBar" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 15
+
+[node name="TimerLabel" type="Label" parent="UI"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -69.0
+offset_top = 20.0
+offset_right = 69.0
+offset_bottom = 62.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+horizontal_alignment = 1
+
+[node name="HealthBar" type="ProgressBar" parent="UI"]
 unique_name_in_owner = true
 z_index = 128
-offset_left = -945.0
-offset_top = -525.0
-offset_right = -639.0
-offset_bottom = -484.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 326.0
+offset_bottom = 61.0
 size_flags_stretch_ratio = 0.0
 theme_override_styles/background = SubResource("StyleBoxFlat_7c34n")
 theme_override_styles/fill = SubResource("StyleBoxFlat_lgi7r")
@@ -43,7 +59,7 @@ value = 50.0
 rounded = true
 show_percentage = false
 
-[node name="HealthLabel" type="Label" parent="HealthBar"]
+[node name="HealthLabel" type="Label" parent="UI/HealthBar"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8

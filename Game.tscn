@@ -38,21 +38,6 @@ unique_name_in_owner = true
 position = Vector2(-1775, -303)
 rotation = 0.0027972
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Player"]
-
-[node name="TimerLabel" type="Label" parent="Player/CanvasLayer"]
-unique_name_in_owner = true
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -65.0
-offset_top = 32.0
-offset_right = 73.0
-offset_bottom = 74.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 30
-horizontal_alignment = 1
-
 [node name="WorldObjects" type="Node" parent="."]
 
 [node name="Tree" parent="WorldObjects" instance=ExtResource("2_tmq84")]

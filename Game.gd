@@ -35,8 +35,9 @@ func spawn_mob(mob):
 func _on_timer_timeout():
 	spawn_mob(mobs[randi_range(0, mobs.size() - 1)])
 
-# Patterns
+#region Patterns
 
+#endregion
 #endregion
 
 func _on_stopwatch_timeout():
@@ -47,6 +48,6 @@ func _on_stopwatch_timeout():
 	updateTimer()
 
 func updateTimer():
-	%TimerLabel.text = (
+	$Player/%TimerLabel.text = (
 		"0" + str(timeMinutes) if timeMinutes < 10 else str(timeMinutes)) + ":" + (
 		"0" + str(timeSeconds) if timeSeconds < 10 else str(timeSeconds))
