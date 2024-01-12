@@ -25,6 +25,8 @@ radius = 46.0977
 radius = 37.054
 
 [node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.0
 platform_floor_layers = 4294967040
 script = ExtResource("1_8u6if")
 

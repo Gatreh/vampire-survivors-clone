@@ -3,7 +3,7 @@ extends Area2D
 #Keep as var so I can modify the bullets later with upgrades
 var speed = null
 var range = null
-var damage = 1
+var damage = null
 var travelDistance = 0
 
 func _physics_process(delta):
