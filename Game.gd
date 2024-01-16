@@ -1,10 +1,10 @@
 extends Node2D
 
 @onready var mobs = {
-	0: load("res://Slime_Mob.tscn"),
-	1: load("res://Bat_Mob.tscn")
+	SLIME: load("res://Slime_Mob.tscn"),
+	BAT: load("res://Bat_Mob.tscn")
 }
-enum mobnames {SLIME, BAT}
+enum {SLIME, BAT}
 
 var timeSeconds = 0
 var timeMinutes = 0
@@ -28,12 +28,16 @@ func _on_button_pressed():
 # Random position
 func spawn_mob(mob):
 	var new_mob = mobs[mob].instantiate()
-	if mob == 0:
+	if mob == SLIME:
 		new_mob.mobName = "Slime"
-		new_mob.STATS = {"HEALTH": 15, "SPEED": 300, "DAMAGE": 5, "LIFETIME": 5.00}
-	elif mob == 1:
+		new_mob.STATS.HEALTH = 15
+		new_mob.STATS.SPEED = 300
+		new_mob.STATS.DAMAGE = 5
+	elif mob == BAT:
 		new_mob.mobName = "Bat"
-		new_mob.STATS = {"HEALTH": 5, "SPEED": 600, "DAMAGE": 2, "LIFETIME": 5.00}
+		new_mob.STATS.HEALTH = 5
+		new_mob.STATS.SPEED = 0
+		new_mob.STATS.DAMAGE = 2
 	%PathFollow2D.progress_ratio = randf()
 	new_mob.global_position = %PathFollow2D.global_position
 	add_child(new_mob)

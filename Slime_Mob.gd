@@ -1,1 +1,1 @@
-extends "res://Mob_Behavior.gd"
+extends Mob_Behavior
