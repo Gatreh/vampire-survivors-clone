@@ -7,7 +7,7 @@ extends CharacterBody2D
 const DEATH_SCENE = preload("res://smoke_explosion/smoke_explosion.tscn")
 
 var movement = 0
-enum DIRECTION {PLAYER, UP, RIGHT, DOWN, LEFT}
+enum DIRECTION {PLAYER, MIDDLE, HOVER, UP, RIGHT, DOWN, LEFT}
 const MOVEMENT_DIRECTION = {
 	DIRECTION.UP: Vector2(0, -1),
 	DIRECTION.RIGHT: Vector2(1, 0),
@@ -38,10 +38,15 @@ func Move():
 	if STATS.SPEED == 0:
 		pass
 	var direction
-	if movement == DIRECTION.PLAYER:
-		direction = global_position.direction_to(player.global_position)
-	else:
-		direction = MOVEMENT_DIRECTION[movement]
+	match movement:
+		DIRECTION.PLAYER:
+			direction = global_position.direction_to(player.global_position)
+		DIRECTION.MIDDLE:
+			pass #TODO Implement moving towards middle
+		DIRECTION.HOVER:
+			pass #TODO Implement hovering in a circle around the player
+		_:
+			direction = MOVEMENT_DIRECTION[movement]
 	velocity = direction * STATS.SPEED
 	move_and_slide()
 #endregion

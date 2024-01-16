@@ -36,8 +36,9 @@ func spawn_mob(mob):
 	elif mob == BAT:
 		new_mob.mobName = "Bat"
 		new_mob.STATS.HEALTH = 5
-		new_mob.STATS.SPEED = 0
+		new_mob.STATS.SPEED = 600
 		new_mob.STATS.DAMAGE = 2
+		new_mob.movement = new_mob.DIRECTION.UP
 	%PathFollow2D.progress_ratio = randf()
 	new_mob.global_position = %PathFollow2D.global_position
 	add_child(new_mob)
