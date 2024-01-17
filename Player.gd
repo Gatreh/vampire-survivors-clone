@@ -29,7 +29,7 @@ func _physics_process(delta):
 	if overlapping_mobs.size() > 0 && $Timer.is_stopped():
 		$Timer.start()			# Configurable iframes
 		for enemy in overlapping_mobs:
-			health -= enemy.DAMAGE
+			health -= enemy.STATS.DAMAGE
 		updateHealthBar()
 		if health <= 0:
 			health_depleted.emit()

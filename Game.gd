@@ -1,9 +1,10 @@
 extends Node2D
 
 @onready var mobs = {
-	0: load("res://Slime_Mob.tscn"),
-	1: load("res://Bat_Mob.tscn")
+	SLIME: load("res://Slime_Mob.tscn"),
+	BAT: load("res://Bat_Mob.tscn")
 }
+enum {SLIME, BAT}
 
 var timeSeconds = 0
 var timeMinutes = 0
@@ -26,14 +27,26 @@ func _on_button_pressed():
 
 # Random position
 func spawn_mob(mob):
-	var new_mob = mob.instantiate()
+	var new_mob = mobs[mob].instantiate()
+	if mob == SLIME:
+		new_mob.mobName = "Slime"
+		new_mob.STATS.HEALTH = 15
+		new_mob.STATS.SPEED = 300
+		new_mob.STATS.DAMAGE = 5
+		new_mob.movement = new_mob.DIRECTION.UP
+	elif mob == BAT:
+		new_mob.mobName = "Bat"
+		new_mob.STATS.HEALTH = 5
+		new_mob.STATS.SPEED = 600
+		new_mob.STATS.DAMAGE = 2
+		new_mob.movement = new_mob.DIRECTION.UP
 	%PathFollow2D.progress_ratio = randf()
 	new_mob.global_position = %PathFollow2D.global_position
 	add_child(new_mob)
 
 # $Timer timing out
 func _on_timer_timeout():
-	spawn_mob(mobs[randi_range(0, mobs.size() - 1)])
+	spawn_mob(randi_range(0, mobs.size() - 1))
 
 #region Patterns
 

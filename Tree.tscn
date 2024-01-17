@@ -7,6 +7,7 @@
 radius = 17.0294
 
 [node name="Tree" type="StaticBody2D"]
+collision_layer = 4
 
 [node name="GroundShadow" type="Sprite2D" parent="."]
 modulate = Color(0.152941, 0.152941, 0.152941, 0.403922)

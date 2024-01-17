@@ -8,13 +8,12 @@ radius = 44.0114
 
 [node name="BatMob" type="CharacterBody2D"]
 collision_layer = 2
+collision_mask = 5
 platform_floor_layers = 4294967040
 script = ExtResource("1_aa0e3")
 
 [node name="Bat" parent="." instance=ExtResource("1_a7lyj")]
 unique_name_in_owner = true
-position = Vector2(0, 51)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -66)
 shape = SubResource("CircleShape2D_5lbej")
