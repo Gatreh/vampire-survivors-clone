@@ -4,9 +4,9 @@
 [ext_resource type="Script" path="res://Game.gd" id="1_httbb"]
 [ext_resource type="PackedScene" uid="uid://fjf4p4x84qg2" path="res://Tree.tscn" id="2_tmq84"]
 
-[sub_resource type="Curve2D" id="Curve2D_5gefv"]
+[sub_resource type="Curve2D" id="Curve2D_cwgn1"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -1775, -303, 0, 0, 0, 0, 370, -297, 0, 0, 0, 0, 367, 1011, 0, 0, 0, 0, -1769, 1002, 0, 0, 0, 0, -1772, -301)
+"points": PackedVector2Array(-250, 750, 0, -750, -1300, 0, -600, 0, 600, 0, 0, -900, 0, -750, 0, 750, 1300, 0, 600, 0, -600, 0, 0, 900, 0, 750, 0, 0, -1300, 0)
 }
 point_count = 5
 
@@ -26,13 +26,12 @@ color = Color(0.258824, 0.639216, 0.25098, 1)
 position = Vector2(948, 508)
 
 [node name="OutsideCamera" type="Path2D" parent="Player"]
-position = Vector2(739, -345)
-curve = SubResource("Curve2D_5gefv")
+curve = SubResource("Curve2D_cwgn1")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Player/OutsideCamera"]
 unique_name_in_owner = true
-position = Vector2(-1775, -303)
-rotation = 0.0027972
+position = Vector2(-1300, 0)
+rotation = -1.5708
 
 [node name="WorldObjects" type="Node" parent="."]
 
