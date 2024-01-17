@@ -1,9 +1,11 @@
 extends Node2D
 
+@onready var death_scene = load("res://Restart.tscn")
 @onready var mobs = {
 	SLIME: load("res://Slime_Mob.tscn"),
 	BAT: load("res://Bat_Mob.tscn")
 }
+
 enum {SLIME, BAT}
 
 var timeSeconds = 0
@@ -14,12 +16,19 @@ func _ready():
 
 #region Game over handling
 func _on_player_health_depleted():
-	%GameOver.visible = true
+	var deathMenu = death_scene.instantiate()
+	add_child(deathMenu)
+	deathMenu.get_node("%RestartButton").connect("pressed", Callable(self, "_on_Restart_pressed"))
+	deathMenu.get_node("%MainMenuButton").connect("pressed", Callable(self, "_on_MainMenu_pressed"))
 	get_tree().paused = true
 
-func _on_button_pressed():
+func _on_Restart_pressed():
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+
+func _on_MainMenu_pressed():
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://MainMenu.tscn")
 
 #endregion
 

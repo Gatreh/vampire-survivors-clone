@@ -5,7 +5,7 @@ signal health_depleted
 @onready var character := %HappyBoo
 
 var speed := 600
-var max_health := 100.0
+var max_health := 1.0
 var health := max_health
 
 func _ready():
@@ -37,4 +37,6 @@ func _physics_process(delta):
 func updateHealthBar():
 	%HealthBar.max_value = max_health
 	%HealthBar.value = health
+	if health < 0:
+		%HealthBar.value = 0
 	%HealthLabel.text = str(health) + "/" + str(max_health)
