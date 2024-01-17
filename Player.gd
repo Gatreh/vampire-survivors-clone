@@ -5,7 +5,7 @@ signal health_depleted
 @onready var character := %HappyBoo
 
 var speed := 600
-var max_health := 1.0
+var max_health := 100.0
 var health := max_health
 
 func _ready():
