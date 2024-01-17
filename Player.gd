@@ -10,7 +10,6 @@ var health := max_health
 
 func _ready():
 	updateHealthBar()
-	
 
 func _physics_process(delta):
 	# Movement
@@ -37,4 +36,4 @@ func _physics_process(delta):
 func updateHealthBar():
 	%HealthBar.max_value = max_health
 	%HealthBar.value = health
-	%HealthLabel.text = str(health) + "/" + str(max_health)
+	%HealthLabel.text = str(%HealthBar.value) + "/" + str(%HealthBar.max_value)

@@ -28,10 +28,14 @@ var STATS = {
 func _ready():
 	mob = get_node("%" + mobName)
 	mob.play_walk()
+	SetStats()
 	KillAfterTimeout()
 
 func _physics_process(delta):
 	Move()
+
+func SetStats(): 	# Is defined in the specific mob
+	pass			# Used to set default stats if the mob doesn't have any when spawned
 
 #region Movement
 func Move():

@@ -1,9 +1,11 @@
 extends Node2D
 
+@onready var death_scene = load("res://Restart.tscn")
 @onready var mobs = {
 	SLIME: load("res://Slime_Mob.tscn"),
 	BAT: load("res://Bat_Mob.tscn")
 }
+
 enum {SLIME, BAT}
 
 var timeSeconds = 0
@@ -14,12 +16,19 @@ func _ready():
 
 #region Game over handling
 func _on_player_health_depleted():
-	%GameOver.visible = true
+	var deathMenu = death_scene.instantiate()
+	add_child(deathMenu)
+	deathMenu.get_node("%RestartButton").connect("pressed", Callable(self, "_on_Restart_pressed"))
+	deathMenu.get_node("%MainMenuButton").connect("pressed", Callable(self, "_on_MainMenu_pressed"))
 	get_tree().paused = true
 
-func _on_button_pressed():
+func _on_Restart_pressed():
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+
+func _on_MainMenu_pressed():
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://MainMenu.tscn")
 
 #endregion
 
@@ -30,16 +39,10 @@ func spawn_mob(mob):
 	var new_mob = mobs[mob].instantiate()
 	if mob == SLIME:
 		new_mob.mobName = "Slime"
-		new_mob.STATS.HEALTH = 15
-		new_mob.STATS.SPEED = 300
-		new_mob.STATS.DAMAGE = 5
-		new_mob.movement = new_mob.DIRECTION.UP
+		new_mob.movement = new_mob.DIRECTION.PLAYER
 	elif mob == BAT:
 		new_mob.mobName = "Bat"
-		new_mob.STATS.HEALTH = 5
-		new_mob.STATS.SPEED = 600
-		new_mob.STATS.DAMAGE = 2
-		new_mob.movement = new_mob.DIRECTION.UP
+		new_mob.movement = new_mob.DIRECTION.PLAYER
 	%PathFollow2D.progress_ratio = randf()
 	new_mob.global_position = %PathFollow2D.global_position
 	add_child(new_mob)
