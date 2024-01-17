@@ -9,7 +9,6 @@ var DEFAULT_STATS = {
 }
 
 func SetStats():
-	
 	for stat in STATS:
 		if STATS[stat] == 0:
 			STATS[stat] = DEFAULT_STATS[stat]
