@@ -6,7 +6,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_cwgn1"]
 _data = {
-"points": PackedVector2Array(-250, 750, 0, -750, -1300, 0, -600, 0, 600, 0, 0, -900, 0, -750, 0, 750, 1300, 0, 600, 0, -600, 0, 0, 900, 0, 750, 0, 0, -1300, 0)
+"points": PackedVector2Array(-600, 0, 600, 0, 0, -900, 0, -750, 0, 750, 1300, 0, 600, 0, -600, 0, 0, 900, 0, 750, 0, -750, -1300, 0, -600, 0, 0, 0, 0, -900)
 }
 point_count = 5
 
@@ -31,9 +31,9 @@ curve = SubResource("Curve2D_cwgn1")
 
 [node name="SmallCircleFollow" type="PathFollow2D" parent="Player/OutsideCamera"]
 unique_name_in_owner = true
-position = Vector2(-1279.94, -206.774)
-rotation = -1.36647
-progress = 208.106
+position = Vector2(-0.00244135, 900)
+rotation = -3.14159
+progress = 3588.04
 
 [node name="Stopwatch" type="Timer" parent="."]
 autostart = true
@@ -184,4 +184,4 @@ position = Vector2(291, 266)
 
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="Stopwatch" to="." method="_on_stopwatch_timeout"]
-[connection signal="timeout" from="SpawnTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer"]

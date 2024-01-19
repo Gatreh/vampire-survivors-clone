@@ -1,15 +1,12 @@
-extends Node2D
+extends PatternSpawner
 
 @onready var death_scene = load("res://Restart.tscn")
-@onready var mobs = {
-	SLIME: load("res://Slime_Mob.tscn"),
-	BAT: load("res://Bat_Mob.tscn")
-}
 
-enum {SLIME, BAT}
+enum mobs {SLIME, BAT}
 
 var timeSeconds = 0
 var timeMinutes = 0
+
 
 func _ready():
 	updateTimer()
@@ -33,21 +30,10 @@ func _on_MainMenu_pressed():
 #endregion
 
 #region Mob spawning handling
-
-# Random position
-func spawn_mob(mob):
-	var new_mob = mobs[mob].instantiate()
-	if mob == SLIME:
-		new_mob.mobName = "Slime"
-	elif mob == BAT:
-		new_mob.mobName = "Bat"
-	%SmallCircleFollow.progress_ratio = randf()
-	new_mob.global_position = %SmallCircleFollow.global_position
-	add_child(new_mob)
-
-# $Timer timing out
-func _on_timer_timeout():
-	spawn_mob(randi_range(0, mobs.size() - 1))
+# Spawntimer will use times from time(m, s) or conditions to summon mobs.
+# Below are some examples
+func _on_SpawnTimer():
+	Random(randi_range(0, mobs.size() - 1))
 
 #region Patterns
 
@@ -65,3 +51,19 @@ func updateTimer():
 	$Player/%TimerLabel.text = (
 		"0" + str(timeMinutes) if timeMinutes < 10 else str(timeMinutes)) + ":" + (
 		"0" + str(timeSeconds) if timeSeconds < 10 else str(timeSeconds))
+
+# Time calculator helpers
+func AtTime(minutes, seconds) -> bool:
+	return (timeMinutes == minutes && timeSeconds == seconds)
+
+func BeforeTime(minutes, seconds) -> bool:
+	if timeMinutes > 0:
+		if timeMinutes == minutes:
+			return (timeSeconds <= seconds)
+		return (timeMinutes <= minutes)
+	return (timeSeconds <= seconds)
+
+func BetweenTime(startMinutes, startSeconds, endMinutes, endSeconds) -> bool:
+	return true
+
+
