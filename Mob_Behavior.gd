@@ -6,7 +6,8 @@ extends CharacterBody2D
 
 const DEATH_SCENE = preload("res://smoke_explosion/smoke_explosion.tscn")
 const DROPS = {
-	"HEALTH": preload("res://items/pickup_health/HealthPickup.tscn")
+	"HEALTH": preload("res://items/pickup_health/HealthPickup.tscn"),
+	"HEALTH_CHANCE": 0.05
 }
 
 var movement = 0
@@ -86,9 +87,10 @@ func KillAfterTimeout():
 func Kill():
 	queue_free()
 	var smoke = DEATH_SCENE.instantiate()
-	var health = DROPS.HEALTH.instantiate()
 	get_parent().add_child(smoke)
-	get_parent().add_child(health)
 	smoke.global_position = global_position
-	health.global_position = global_position
+	if randf() < DROPS.HEALTH_CHANCE:
+		var health = DROPS.HEALTH.instantiate()
+		get_parent().add_child(health)
+		health.global_position = global_position
 #endregion
