@@ -6,7 +6,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_cwgn1"]
 _data = {
-"points": PackedVector2Array(-600, 0, 600, 0, 0, -900, 0, -750, 0, 750, 1300, 0, 600, 0, -600, 0, 0, 900, 0, 750, 0, -750, -1300, 0, -600, 0, 0, 0, 0, -900)
+"points": PackedVector2Array(-600, 0, 750, 0, 0, -1100, 0, -750, 0, 750, 1300, 0, 750, 0, -750, 0, 0, 1100, 0, 750, 0, -750, -1300, 0, -750, 0, 0, 0, 0, -1100)
 }
 point_count = 5
 
@@ -31,9 +31,9 @@ curve = SubResource("Curve2D_cwgn1")
 
 [node name="SmallCircleFollow" type="PathFollow2D" parent="Player/OutsideCamera"]
 unique_name_in_owner = true
-position = Vector2(-0.00244135, 900)
-rotation = -3.14159
-progress = 3588.04
+position = Vector2(-538.487, -1028.08)
+rotation = -0.289649
+progress = 7176.07
 
 [node name="Stopwatch" type="Timer" parent="."]
 autostart = true
@@ -44,6 +44,7 @@ autostart = true
 
 [node name="mapobjects" type="Node2D" parent="."]
 y_sort_enabled = true
+position = Vector2(2373, 0)
 
 [node name="CornerTrees" type="Node2D" parent="mapobjects"]
 y_sort_enabled = true

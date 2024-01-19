@@ -33,7 +33,9 @@ func _on_MainMenu_pressed():
 # Spawntimer will use times from time(m, s) or conditions to summon mobs.
 # Below are some examples
 func _on_SpawnTimer():
-	Random(randi_range(0, mobs.size() - 1))
+	if AtTime(0, 2):
+		Circle(SLIME, 4)
+		CircleFullSpawner(SLIME, null, 4, 0.00, 270, 90, false, true)
 
 #region Patterns
 
