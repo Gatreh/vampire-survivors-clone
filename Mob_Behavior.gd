@@ -5,6 +5,9 @@ extends CharacterBody2D
 @onready var mob = new()
 
 const DEATH_SCENE = preload("res://smoke_explosion/smoke_explosion.tscn")
+const DROPS = {
+	"HEALTH": preload("res://items/pickup_health/HealthPickup.tscn")
+}
 
 var movement = 0
 var direction = Vector2(0,0)
@@ -83,6 +86,9 @@ func KillAfterTimeout():
 func Kill():
 	queue_free()
 	var smoke = DEATH_SCENE.instantiate()
+	var health = DROPS.HEALTH.instantiate()
 	get_parent().add_child(smoke)
+	get_parent().add_child(health)
 	smoke.global_position = global_position
+	health.global_position = global_position
 #endregion

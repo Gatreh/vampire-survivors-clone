@@ -4,9 +4,11 @@ signal health_depleted
 
 @onready var character := %HappyBoo
 
-var speed := 600
-var max_health := 100.0
-var health := max_health
+var STATS = {
+	"MAX_HEALTH": 100.0,
+	"HEALTH": 100.0,
+	"SPEED": 600
+}
 
 func _ready():
 	updateHealthBar()
@@ -14,7 +16,7 @@ func _ready():
 func _physics_process(delta):
 	# Movement
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = direction * speed
+	velocity = direction * STATS.SPEED
 	move_and_slide()
 	
 	# Animations
@@ -28,12 +30,12 @@ func _physics_process(delta):
 	if overlapping_mobs.size() > 0 && $Timer.is_stopped():
 		$Timer.start()			# Configurable iframes
 		for enemy in overlapping_mobs:
-			health -= enemy.STATS.DAMAGE
+			STATS.HEALTH -= enemy.STATS.DAMAGE
 		updateHealthBar()
-		if health <= 0:
+		if STATS.HEALTH <= 0:
 			health_depleted.emit()
 
 func updateHealthBar():
-	%HealthBar.max_value = max_health
-	%HealthBar.value = health
+	%HealthBar.max_value = STATS.MAX_HEALTH
+	%HealthBar.value = STATS.HEALTH
 	%HealthLabel.text = str(%HealthBar.value) + "/" + str(%HealthBar.max_value)
