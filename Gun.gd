@@ -1,13 +1,16 @@
 extends Area2D
 
-const BULLET = preload("res://Bullet.tscn")
+const PROJECTTILE = preload("res://Bullet.tscn")
 
 var WEAPON_STATS = {
 	"DAMAGE": 1,
+	"MAX_DAMAGE": 3,
 	"ATTACK_SPEED": 0.2,
+	"CRIT_RATE": 0.1,
 	"PROJECTILE_SPEED": 800,
-	"LIFETIME": 1.5 # Can be used as a range multiplier or a timer.
+	"LIFETIME": 1.5 # Can be used as a timer or a speed multiplier for range.
 }
+# Random thought, Damage could be set using a range from DAMAGE to DAMAGE_MAX using
 
 func _ready():
 	$AttackSpeed.wait_time = WEAPON_STATS.ATTACK_SPEED
@@ -21,14 +24,20 @@ func _physics_process(delta):
 		look_at(target_enemy.global_position)
 	FlipWeapon()
 
+
 func Shoot():
-	var new_bullet = BULLET.instantiate()
-	new_bullet.STATS.DAMAGE = 1
-	new_bullet.STATS.SPEED = 800
+	var new_bullet = PROJECTTILE.instantiate()
+	new_bullet.STATS.DAMAGE = SetDamage()
+	if WEAPON_STATS.CRIT_RATE >= randf():
+		new_bullet.STATS.CRIT = true
+	new_bullet.STATS.SPEED = WEAPON_STATS.PROJECTILE_SPEED
 	new_bullet.STATS.RANGE = WEAPON_STATS.LIFETIME
 	new_bullet.global_position = %ShootingPoint.global_position
 	new_bullet.global_rotation_degrees = %ShootingPoint.global_rotation_degrees
 	%ShootingPoint.add_child(new_bullet)
+
+func SetDamage() -> int:
+	return randi_range(WEAPON_STATS.DAMAGE, WEAPON_STATS.MAX_DAMAGE)
 
 # Flip sprite based on which direction it's pointing and adjust position
 # to make it look more like it's in the same spot as the original

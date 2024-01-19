@@ -1,9 +1,10 @@
 extends Area2D
 
-const STATS = {
-	"DAMAGE": 1,
-	"SPEED": 800,
-	"RANGE": 1.5
+var STATS = {
+	"DAMAGE": 0,
+	"SPEED": 0,
+	"RANGE": 0.0,
+	"CRIT": false
 }
 
 var travelDistance = 0 # Distance the bullet has traveled
@@ -19,4 +20,7 @@ func _physics_process(delta):
 func _on_body_entered(body):
 	queue_free()
 	if body.has_method("TakeDamage"):
-		body.TakeDamage(STATS.DAMAGE)
+		var critDamage = 1
+		if STATS.CRIT == true:
+			critDamage = 2
+		body.TakeDamage(STATS.DAMAGE * critDamage, STATS.CRIT)

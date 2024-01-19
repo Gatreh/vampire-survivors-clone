@@ -65,9 +65,13 @@ func Move():
 #endregion
 
 #region Damage
-func TakeDamage(damage):
+func TakeDamage(damage, crit):
+	var damageNumber = load("res://DamageTextHover.tscn").instantiate()
+	damageNumber.labelText = str(damage)
+	if crit: damageNumber.crit = true
 	STATS.HEALTH -= damage
 	mob.play_hurt()
+	add_child(damageNumber)
 	if STATS.HEALTH <= 0:
 		Kill()
 
