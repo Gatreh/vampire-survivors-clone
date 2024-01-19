@@ -3,14 +3,13 @@ extends Area2D
 const PROJECTTILE = preload("res://Bullet.tscn")
 
 var WEAPON_STATS = {
-	"DAMAGE": 1,
-	"MAX_DAMAGE": 3,
+	"DAMAGE": 10,
+	"MAX_DAMAGE": 17,
 	"ATTACK_SPEED": 0.2,
 	"CRIT_RATE": 0.1,
 	"PROJECTILE_SPEED": 800,
 	"LIFETIME": 1.5 # Can be used as a timer or a speed multiplier for range.
 }
-# Random thought, Damage could be set using a range from DAMAGE to DAMAGE_MAX using
 
 func _ready():
 	$AttackSpeed.wait_time = WEAPON_STATS.ATTACK_SPEED

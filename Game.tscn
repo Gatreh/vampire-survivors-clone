@@ -29,10 +29,11 @@ position = Vector2(948, 508)
 [node name="OutsideCamera" type="Path2D" parent="Player"]
 curve = SubResource("Curve2D_cwgn1")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="Player/OutsideCamera"]
+[node name="SmallCircleFollow" type="PathFollow2D" parent="Player/OutsideCamera"]
 unique_name_in_owner = true
-position = Vector2(-1300, 0)
-rotation = -1.5708
+position = Vector2(-1279.94, -206.774)
+rotation = -1.36647
+progress = 208.106
 
 [node name="Stopwatch" type="Timer" parent="."]
 autostart = true

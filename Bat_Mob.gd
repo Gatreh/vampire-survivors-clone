@@ -2,7 +2,7 @@ extends Mob_Behavior
 
 func SetStats():
 	DEFAULT_STATS = {
-		"HEALTH" : 5,
+		"HEALTH" : 60,
 		"SPEED": 600,
 		"DAMAGE": 2,
 		"RANGE": 0,

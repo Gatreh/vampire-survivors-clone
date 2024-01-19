@@ -41,8 +41,8 @@ func spawn_mob(mob):
 		new_mob.mobName = "Slime"
 	elif mob == BAT:
 		new_mob.mobName = "Bat"
-	%PathFollow2D.progress_ratio = randf()
-	new_mob.global_position = %PathFollow2D.global_position
+	%SmallCircleFollow.progress_ratio = randf()
+	new_mob.global_position = %SmallCircleFollow.global_position
 	add_child(new_mob)
 
 # $Timer timing out
