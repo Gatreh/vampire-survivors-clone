@@ -1,20 +1,22 @@
 extends Area2D
 
-#Keep as var so I can modify the bullets later with upgrades
-var speed = null
-var range = null
-var damage = null
-var travelDistance = 0
+const STATS = {
+	"DAMAGE": 1,
+	"SPEED": 800,
+	"RANGE": 1.5
+}
+
+var travelDistance = 0 # Distance the bullet has traveled
 
 func _physics_process(delta):
 	var direction = Vector2.RIGHT.rotated(rotation)
-	position += direction * speed * delta
+	position += direction * STATS.SPEED * delta
 	
-	travelDistance += speed * delta
-	if travelDistance > range:
+	travelDistance += STATS.SPEED * delta
+	if travelDistance > STATS.SPEED * STATS.RANGE:
 		queue_free()
 
 func _on_body_entered(body):
 	queue_free()
 	if body.has_method("TakeDamage"):
-		body.TakeDamage(damage)
+		body.TakeDamage(STATS.DAMAGE)

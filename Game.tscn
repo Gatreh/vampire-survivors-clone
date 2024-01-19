@@ -21,6 +21,7 @@ layer = -1
 offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0.258824, 0.639216, 0.25098, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_6boc0")]
 position = Vector2(948, 508)
@@ -33,47 +34,152 @@ unique_name_in_owner = true
 position = Vector2(-1300, 0)
 rotation = -1.5708
 
-[node name="WorldObjects" type="Node" parent="."]
-
-[node name="Tree" parent="WorldObjects" instance=ExtResource("2_tmq84")]
-position = Vector2(351, 750)
-
-[node name="Tree2" parent="WorldObjects" instance=ExtResource("2_tmq84")]
-position = Vector2(291, 268)
-
-[node name="Tree3" parent="WorldObjects" instance=ExtResource("2_tmq84")]
-position = Vector2(332, 299)
-
-[node name="Tree4" parent="WorldObjects" instance=ExtResource("2_tmq84")]
-position = Vector2(588, 237)
-
-[node name="Tree5" parent="WorldObjects" instance=ExtResource("2_tmq84")]
-position = Vector2(617, 465)
-
-[node name="Tree7" parent="WorldObjects" instance=ExtResource("2_tmq84")]
-position = Vector2(1000, 299)
-
-[node name="Tree8" parent="WorldObjects" instance=ExtResource("2_tmq84")]
-position = Vector2(1200, 422)
-
-[node name="Tree6" parent="WorldObjects" instance=ExtResource("2_tmq84")]
-position = Vector2(907, 791)
-
-[node name="Tree9" parent="WorldObjects" instance=ExtResource("2_tmq84")]
-position = Vector2(1687, 163)
-
-[node name="Tree10" parent="WorldObjects" instance=ExtResource("2_tmq84")]
-position = Vector2(1611, 698)
-
-[node name="Tree11" parent="WorldObjects" instance=ExtResource("2_tmq84")]
-position = Vector2(1300, 953)
-
 [node name="Stopwatch" type="Timer" parent="."]
 autostart = true
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
+
+[node name="mapobjects" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="CornerTrees" type="Node2D" parent="mapobjects"]
+y_sort_enabled = true
+
+[node name="Tree2" parent="mapobjects/CornerTrees" instance=ExtResource("2_tmq84")]
+position = Vector2(-1920, -1080)
+
+[node name="Tree16" parent="mapobjects/CornerTrees" instance=ExtResource("2_tmq84")]
+position = Vector2(-1877, -1058)
+
+[node name="Tree12" parent="mapobjects/CornerTrees" instance=ExtResource("2_tmq84")]
+position = Vector2(3840, -1080)
+
+[node name="Tree17" parent="mapobjects/CornerTrees" instance=ExtResource("2_tmq84")]
+position = Vector2(3799, -1064)
+
+[node name="Tree13" parent="mapobjects/CornerTrees" instance=ExtResource("2_tmq84")]
+position = Vector2(-1920, 2160)
+
+[node name="Tree19" parent="mapobjects/CornerTrees" instance=ExtResource("2_tmq84")]
+position = Vector2(-1869, 2138)
+
+[node name="Tree14" parent="mapobjects/CornerTrees" instance=ExtResource("2_tmq84")]
+position = Vector2(3840, 2160)
+
+[node name="Tree18" parent="mapobjects/CornerTrees" instance=ExtResource("2_tmq84")]
+position = Vector2(3789, 2135)
+
+[node name="TopObjects" type="Node2D" parent="mapobjects"]
+y_sort_enabled = true
+position = Vector2(0, -1080)
+
+[node name="Tree" parent="mapobjects/TopObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(351, 750)
+
+[node name="Tree3" parent="mapobjects/TopObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(338, 299)
+
+[node name="Tree4" parent="mapobjects/TopObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(588, 237)
+
+[node name="Tree5" parent="mapobjects/TopObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(617, 465)
+
+[node name="Tree7" parent="mapobjects/TopObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1000, 299)
+
+[node name="Tree8" parent="mapobjects/TopObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1200, 422)
+
+[node name="Tree6" parent="mapobjects/TopObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(907, 791)
+
+[node name="Tree9" parent="mapobjects/TopObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1687, 163)
+
+[node name="Tree10" parent="mapobjects/TopObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1611, 698)
+
+[node name="Tree11" parent="mapobjects/TopObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1300, 953)
+
+[node name="Tree15" parent="mapobjects/TopObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(291, 266)
+
+[node name="MiddleObjects" type="Node2D" parent="mapobjects"]
+y_sort_enabled = true
+
+[node name="Tree" parent="mapobjects/MiddleObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(351, 750)
+
+[node name="Tree3" parent="mapobjects/MiddleObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(338, 299)
+
+[node name="Tree4" parent="mapobjects/MiddleObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(588, 237)
+
+[node name="Tree5" parent="mapobjects/MiddleObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(617, 465)
+
+[node name="Tree7" parent="mapobjects/MiddleObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1000, 299)
+
+[node name="Tree8" parent="mapobjects/MiddleObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1200, 422)
+
+[node name="Tree6" parent="mapobjects/MiddleObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(907, 791)
+
+[node name="Tree9" parent="mapobjects/MiddleObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1687, 163)
+
+[node name="Tree10" parent="mapobjects/MiddleObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1611, 698)
+
+[node name="Tree11" parent="mapobjects/MiddleObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1300, 953)
+
+[node name="Tree15" parent="mapobjects/MiddleObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(291, 266)
+
+[node name="BottomObjects" type="Node2D" parent="mapobjects"]
+y_sort_enabled = true
+position = Vector2(0, 1080)
+
+[node name="Tree" parent="mapobjects/BottomObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(351, 750)
+
+[node name="Tree3" parent="mapobjects/BottomObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(338, 299)
+
+[node name="Tree4" parent="mapobjects/BottomObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(588, 237)
+
+[node name="Tree5" parent="mapobjects/BottomObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(617, 465)
+
+[node name="Tree7" parent="mapobjects/BottomObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1000, 299)
+
+[node name="Tree8" parent="mapobjects/BottomObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1200, 422)
+
+[node name="Tree6" parent="mapobjects/BottomObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(907, 791)
+
+[node name="Tree9" parent="mapobjects/BottomObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1687, 163)
+
+[node name="Tree10" parent="mapobjects/BottomObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1611, 698)
+
+[node name="Tree11" parent="mapobjects/BottomObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(1300, 953)
+
+[node name="Tree15" parent="mapobjects/BottomObjects" instance=ExtResource("2_tmq84")]
+position = Vector2(291, 266)
 
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="Stopwatch" to="." method="_on_stopwatch_timeout"]

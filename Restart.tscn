@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c2e6tb0mj8jlg"]
+[gd_scene format=3 uid="uid://dhuybpmcgxuus"]
 
 [node name="Restart" type="Control"]
 process_mode = 3

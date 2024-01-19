@@ -17,6 +17,8 @@ const MOVEMENT_DIRECTION = {
 }
 
 var mobName = ""
+var difficulty = 1
+var DEFAULT_STATS
 var STATS = {
 	"HEALTH" : 0,
 	"SPEED": 0,
@@ -28,7 +30,12 @@ var STATS = {
 func _ready():
 	mob = get_node("%" + mobName)
 	mob.play_walk()
+	
 	SetStats()
+	for stat in STATS:
+		if STATS[stat] == 0:
+			STATS[stat] = DEFAULT_STATS[stat] * difficulty
+	
 	KillAfterTimeout()
 
 func _physics_process(delta):

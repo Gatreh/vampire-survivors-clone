@@ -1,7 +1,18 @@
 extends Area2D
 
+const BULLET = preload("res://Bullet.tscn")
+
+var WEAPON_STATS = {
+	"DAMAGE": 1,
+	"ATTACK_SPEED": 0.2,
+	"PROJECTILE_SPEED": 800,
+	"LIFETIME": 1.5 # Can be used as a range multiplier or a timer.
+}
+
 func _ready():
-	Shoot()
+	$AttackSpeed.wait_time = WEAPON_STATS.ATTACK_SPEED
+	$AttackSpeed.autostart = true
+	$AttackSpeed.start()
 
 func _physics_process(delta):
 	var enemies_in_range = get_overlapping_bodies()
@@ -11,11 +22,10 @@ func _physics_process(delta):
 	FlipWeapon()
 
 func Shoot():
-	const BULLET = preload("res://Bullet.tscn")
 	var new_bullet = BULLET.instantiate()
-	new_bullet.damage = 1
-	new_bullet.speed = 800
-	new_bullet.range = 1200
+	new_bullet.STATS.DAMAGE = 1
+	new_bullet.STATS.SPEED = 800
+	new_bullet.STATS.RANGE = WEAPON_STATS.LIFETIME
 	new_bullet.global_position = %ShootingPoint.global_position
 	new_bullet.global_rotation_degrees = %ShootingPoint.global_rotation_degrees
 	%ShootingPoint.add_child(new_bullet)

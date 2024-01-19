@@ -24,9 +24,7 @@ texture = ExtResource("1_xgf7a")
 unique_name_in_owner = true
 position = Vector2(26, -11)
 
-[node name="Timer" type="Timer" parent="."]
+[node name="AttackSpeed" type="Timer" parent="."]
 editor_description = "AttackSpeed"
-wait_time = 0.2
-autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="AttackSpeed" to="." method="_on_timer_timeout"]
