@@ -12,13 +12,13 @@ const ENEMY_NAME = {
 enum {SLIME, BAT}
 
 var distance = 0	# The total distance between point a and point b
-var step = 0.0 		# The space between each spawned mobType
+var step = 0.01226 		# The space between each spawned mobType
 
 #Pass array and mob to this function to override base stat
 #Array should be two dimensional with name like ["SPEED", 2000]
-func _set_stats(mob, newStats):
+func _set_stats(spawn, newStats):
 	for stat in newStats:
-		mob.STATS[stat[0]] = stat[1]
+		spawn.STATS[stat[0]] = stat[1]
 
 #region Random spawning pattern
 func Random(mobType): RandomFullSpawner(mobType, null, 1, 0.00)
@@ -40,19 +40,43 @@ func RandomFullSpawner(mobType, newStats, amount, delay):
 		if delay > 0.00:
 			await get_tree().create_timer(delay).timeout
 #endregion
-#CircleFullSpawner(1, null, 0, 0.00, 0, 360, true, false)
+
+#CircleFullSpawner(MobType, null, 0, 0.00, 0, 360, true, false)
 #region Circle sparning pattern
 func Circle(mobType, amount): CircleFullSpawner(mobType, null, amount, 0.00, 0, 360, true, false)
+func CircleLeft(mobType, amount): CircleFullSpawner(mobType, null, amount, 0.00, 180, 360, true, false)
+func CircleLeftFill(mobType): CircleFullSpawner(mobType, null, 0, 0.00, 180, 360, false, true)
+
+func CircleRight(mobType, amount): CircleFullSpawner(mobType, null, amount, 0.00, 0, 180, true, false)
+func CircleRightFill(mobType): CircleFullSpawner(mobType, null, 0, 0.00, 0, 180, false, true)
+
+func CircleTop(mobType, amount): CircleFullSpawner(mobType, null, amount, 0.00, 270, 90, true, false)
+func CircleFillTop(mobType): CircleFullSpawner(mobType, null, 0, 0.00, 270, 90, false, true)
+
+func CircleBottom(mobType, amount): CircleFullSpawner(mobType, null, amount, 0.00, 90, 270, true, false)
+func CircleFillBottom(mobType): CircleFullSpawner(mobType, null, 0, 0.00, 90, 270, false, true)
+
+func CircleCorners(mobType, amount): 
+	if amount < 4: amount = 4
+	CircleFullSpawner(mobType, null, amount / 4, 0.00, 22.5, 67.5, true, false) # top-rght
+	CircleFullSpawner(mobType, null, amount / 4, 0.00, 112.5, 157.5, true, false) # bottom-right
+	CircleFullSpawner(mobType, null, amount / 4, 0.00, 202.5, 247.5, true, false) # bottom-left
+	CircleFullSpawner(mobType, null, amount / 4, 0.00, 292.5, 337.5, true, false) # top-left
+
+func CircleDirections(mobType, amount): 
+	if amount < 4: amount = 4
+	CircleFullSpawner(mobType, null, amount / 4, 0.00, 337.5, 22.5, true, false) # top
+	CircleFullSpawner(mobType, null, amount / 4, 0.00, 67.5, 112.5, true, false) # right
+	CircleFullSpawner(mobType, null, amount / 4, 0.00, 157.5, 202.5, true, false) # bottom
+	CircleFullSpawner(mobType, null, amount / 4, 0.00, 247.5, 292.5, true, false) # left
 
 func CircleFullSpawner(mobType:int, newStats, amount:int, delay:float, 
-						startDeg:int, endDeg:int, separate:bool, fill:bool):
+						startDeg:float, endDeg:float, separate:bool, fill:bool):
 	if startDeg < endDeg:	distance = (endDeg - startDeg) / 360.0
 	if startDeg > endDeg:	distance = (360 - (startDeg - endDeg)) / 360.0
 	
-	if separate:	step = distance / (amount - 1.0)
-	else:	step = 0.01226 # Size of mobType collision box / length of track in pixels
-	
 	if fill:	amount = distance / step # Places as many enemies as will fit in the area specified
+	if separate:	step = distance / (amount - 1.0)
 	%SmallCircleFollow.progress_ratio = startDeg / 360.0
 	for x in amount:
 		var spawn = ENEMY[mobType].instantiate()

@@ -31,9 +31,9 @@ curve = SubResource("Curve2D_cwgn1")
 
 [node name="SmallCircleFollow" type="PathFollow2D" parent="Player/OutsideCamera"]
 unique_name_in_owner = true
-position = Vector2(-538.487, -1028.08)
-rotation = -0.289649
-progress = 7176.07
+position = Vector2(383.95, -1065.61)
+rotation = 0.1894
+progress = 386.061
 
 [node name="Stopwatch" type="Timer" parent="."]
 autostart = true
@@ -44,7 +44,6 @@ autostart = true
 
 [node name="mapobjects" type="Node2D" parent="."]
 y_sort_enabled = true
-position = Vector2(2373, 0)
 
 [node name="CornerTrees" type="Node2D" parent="mapobjects"]
 y_sort_enabled = true

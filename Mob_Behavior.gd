@@ -10,7 +10,6 @@ const DROPS = {
 	"HEALTH_CHANCE": 0.05
 }
 
-var movement = 0
 var direction = Vector2(0,0)
 enum DIRECTION {PLAYER, MIDDLE, HOVER, UP, RIGHT, DOWN, LEFT}
 const MOVEMENT_DIRECTION = {
@@ -19,15 +18,17 @@ const MOVEMENT_DIRECTION = {
 	DIRECTION.DOWN: Vector2(0, 1),
 	DIRECTION.LEFT: Vector2(-1, 0)
 }
-
+# STATS["HEALTH"]
+# STATS.HEALTH
 var mobName = ""
 var difficulty = 1
 var DEFAULT_STATS
 var STATS = {
 	"HEALTH" : 0,
-	"SPEED": 0,
 	"DAMAGE": 0,
 	"RANGE": 0,
+	"SPEED": 0,
+	"MOVE_TYPE": 0,
 	"LIFETIME": 0.00 # in seconds
 }
 
@@ -52,7 +53,7 @@ func SetStats(): 	# Is defined in the specific mob
 func Move():
 	if STATS.SPEED == 0:
 		pass
-	match movement:
+	match STATS.MOVE_TYPE:
 		DIRECTION.PLAYER:
 			direction = global_position.direction_to(player.global_position)
 		DIRECTION.MIDDLE:
@@ -63,7 +64,7 @@ func Move():
 		_:
 			if get_collision_mask_value(3):
 				set_collision_mask_value(3, false)
-			direction = MOVEMENT_DIRECTION[movement]
+			direction = MOVEMENT_DIRECTION[STATS.MOVE_TYPE]
 	velocity = direction * STATS.SPEED
 	move_and_slide()
 #endregion
