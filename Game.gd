@@ -2,8 +2,9 @@ extends PatternSpawner
 
 @onready var death_scene = load("res://Restart.tscn")
 
-enum mobs {SLIME, BAT}
+enum DIRECTION {PLAYER, MIDDLE, HOVER, UP, RIGHT, DOWN, LEFT}
 
+var time = 0
 var timeSeconds = 0
 var timeMinutes = 0
 
@@ -32,8 +33,19 @@ func _on_MainMenu_pressed():
 #region Mob spawning handling
 # Spawntimer will use times from time(m, s) or conditions to summon mobs.
 # Below are some examples
+#func CircleFullSpawner(mobType:int, newStats, amount:int, delay:float, 
+#						startDeg:float, endDeg:float, separate:bool, fill:bool):
 func _on_SpawnTimer():
-	Random(SLIME)
+	if BetweenTime(0,0, 0,45):
+		Random(1, 0.0)
+	if BetweenTime(0,45, 1,30):
+		Random(2, 0.5)
+	if AfterTime(1, 30):
+		Random(3, 0.33)
+	if AtTime(1, 0):
+		var stats = [["SPEED", 500], ["MOVE_TYPE", DIRECTION.MIDDLE], ["LIFETIME", 5.0]]
+		Circle(SLIME, 10, stats, 0.00)
+		Circle(BAT, 9, stats, 0.00)
 
 #region Patterns
 
@@ -45,6 +57,7 @@ func _on_stopwatch_timeout():
 	if timeSeconds == 60:
 		timeSeconds = 0
 		timeMinutes += 1
+	time += 1
 	updateTimer()
 
 func updateTimer():
@@ -54,20 +67,10 @@ func updateTimer():
 
 # Time calculator helpers
 func AtTime(minutes, seconds) -> bool:
-	return (timeMinutes == minutes && timeSeconds == seconds)
-
-func BeforeTime(minutes, seconds) -> bool:
-	if timeMinutes > 0:
-		if timeMinutes == minutes:
-			return (timeSeconds <= seconds)
-		return (timeMinutes <= minutes)
-	return (timeSeconds <= seconds)
+	return (minutes * 60 + seconds) == time
 
 func BetweenTime(startMinutes, startSeconds, endMinutes, endSeconds) -> bool:
-	return ((timeMinutes > startMinutes && timeMinutes < endMinutes) || ( # If the time is betwen start and end  minutes
-			startMinutes != endMinutes && ( # Check times on same start or end minute of the expression
-				(timeMinutes == startMinutes && timeSeconds >= startSeconds) ||
-				(timeMinutes == endMinutes && timeSeconds <= endSeconds))) ||
-			startMinutes == endMinutes && ( # Check time when it's the sane start and end minute
-				timeSeconds >= startSeconds && timeSeconds <= endSeconds ))
+	return (startMinutes * 60 + startSeconds) <= time && time <= endMinutes * 60 + endSeconds
 
+func AfterTime(startMinutes, startSeconds):
+	return (startMinutes * 60 + startSeconds) <= time

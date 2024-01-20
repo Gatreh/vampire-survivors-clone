@@ -21,14 +21,13 @@ func _set_stats(spawn, newStats):
 		spawn.STATS[stat[0]] = stat[1]
 
 #region Random spawning pattern
-func Random(mobType): RandomFullSpawner(mobType, null, 1, 0.00)
-func RandomWithStat(mobType, newStats): RandomFullSpawner(mobType, newStats, 1, 0.00)
-func RandomMultiple(mobType, amount): RandomFullSpawner(mobType, null, amount, 0.00)
-func RandomWithStatMultiple(mobType, amount, newStats): RandomFullSpawner(mobType, newStats, amount, 0.00)
-func RandomDelayed(mobType, amount, delay): RandomFullSpawner(mobType, null, amount, delay)
-func RandomWithStatDelayed(mobType, newStats, amount, delay): RandomFullSpawner(mobType, newStats, amount, delay)
+func Random(amount, delay): 
+	for x in amount:
+		RandomFullSpawner(randi_range(0, ENEMY.size() -1), null, 1, 0.00)
+		if delay > 0.00:
+			await get_tree().create_timer(delay).timeout
 
-func RandomFullSpawner(mobType, newStats, amount, delay):
+func RandomFullSpawner(mobType: int, newStats, amount: int, delay: float):
 	for x in amount:
 		var spawn = ENEMY[mobType].instantiate()
 		spawn.mobName = ENEMY_NAME[mobType]
@@ -43,41 +42,145 @@ func RandomFullSpawner(mobType, newStats, amount, delay):
 
 #CircleFullSpawner(MobType, null, 0, 0.00, 0, 360, true, false)
 #region Circle sparning pattern
-func Circle(mobType, amount): CircleFullSpawner(mobType, null, amount, 0.00, 0, 360, true, false)
-func CircleLeft(mobType, amount): CircleFullSpawner(mobType, null, amount, 0.00, 180, 360, true, false)
-func CircleLeftFill(mobType): CircleFullSpawner(mobType, null, 0, 0.00, 180, 360, false, true)
+func Circle(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 0, 360, true, false)
 
-func CircleRight(mobType, amount): CircleFullSpawner(mobType, null, amount, 0.00, 0, 180, true, false)
-func CircleRightFill(mobType): CircleFullSpawner(mobType, null, 0, 0.00, 0, 180, false, true)
+func CircleFill(mobType, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, 0, delay, 0, 360, false, true)
 
-func CircleTop(mobType, amount): CircleFullSpawner(mobType, null, amount, 0.00, 270, 90, true, false)
-func CircleFillTop(mobType): CircleFullSpawner(mobType, null, 0, 0.00, 270, 90, false, true)
+func CircleDefine(mobType, amount, mobStat, delay, startDeg, endDeg): 
+	CircleFullSpawner(mobType, mobStat, amount, delay, startDeg, endDeg, true, false)
 
-func CircleBottom(mobType, amount): CircleFullSpawner(mobType, null, amount, 0.00, 90, 270, true, false)
-func CircleFillBottom(mobType): CircleFullSpawner(mobType, null, 0, 0.00, 90, 270, false, true)
+func CircleFillDefine(mobType, mobStat, delay, startDeg, endDeg): 
+	CircleFullSpawner(mobType, mobStat, 0, delay, startDeg, endDeg, false, true)
 
-func CircleCorners(mobType, amount): 
-	if amount < 4: amount = 4
-	CircleFullSpawner(mobType, null, amount / 4, 0.00, 22.5, 67.5, true, false) # top-rght
-	CircleFullSpawner(mobType, null, amount / 4, 0.00, 112.5, 157.5, true, false) # bottom-right
-	CircleFullSpawner(mobType, null, amount / 4, 0.00, 202.5, 247.5, true, false) # bottom-left
-	CircleFullSpawner(mobType, null, amount / 4, 0.00, 292.5, 337.5, true, false) # top-left
+func CircleDefineHole(mobType, mobStat, delay, startHole, endHole): 
+	CircleFullSpawner(mobType, mobStat, 0, delay, endHole, startHole, false, true)
 
-func CircleDirections(mobType, amount): 
-	if amount < 4: amount = 4
-	CircleFullSpawner(mobType, null, amount / 4, 0.00, 337.5, 22.5, true, false) # top
-	CircleFullSpawner(mobType, null, amount / 4, 0.00, 67.5, 112.5, true, false) # right
-	CircleFullSpawner(mobType, null, amount / 4, 0.00, 157.5, 202.5, true, false) # bottom
-	CircleFullSpawner(mobType, null, amount / 4, 0.00, 247.5, 292.5, true, false) # left
+#region 180 degree definitions
+func CircleLeft(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 180, 360, true, false)
+	
+func CircleLeftFill(mobType, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, 0, delay, 180, 360, false, true)
 
+func CircleRight(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 0, 180, true, false)
+	
+func CircleRightFill(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, 0, delay, 0, 180, false, true)
+
+func CircleTop(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 270, 90, true, false)
+	
+func CircleFillTop(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, 0, delay, 270, 90, false, true)
+
+func CircleBottom(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 90, 270, true, false)
+	
+func CircleFillBottom(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, 0, delay, 90, 270, false, true)
+
+func CircleTopRight(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 315, 135, true, false)
+	
+func CircleFillTopRight(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 315, 135, false, true)
+
+func CircleTopLeft(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 225, 45, true, false)
+	
+func CircleFillTopLeft(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 225, 45, false, true)
+
+func CircleBottomRight(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 45, 225, true, false)
+	
+func CircleFillBottomRight(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 45, 225, false, true)
+
+func CircleBottomLeft(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 135, 315, true, false)
+	
+func CircleFillBottomLeft(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 135, 315, false, true)
+#endregion
+
+#region 90 degree definitions or "corners"
+func CircleTopCorner(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 315, 45, true, false)
+	
+func CircleFillTopCorner(mobType, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, 0, delay, 315, 45, false, true)
+
+func CircleTopRightCorner(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 0, 90, true, false)
+	
+func CircleFillTopRightCorner(mobType, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, 0, delay, 0, 90, false, true)
+
+func CircleRightCorner(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 45, 135, true, false)
+	
+func CircleFillRightCorner(mobType, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, 0, delay, 45, 135, false, true)
+
+func CircleBottomRightCorner(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 90, 180, true, false)
+	
+func CircleFillBottomRightCorner(mobType, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, 0, delay, 90, 180, false, true)
+
+func CircleBottomCorner(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 135, 225, true, false)
+	
+func CircleFillBottomCorner(mobType, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, 0, delay, 135, 225, false, true)
+
+func CircleBottomLeftCorner(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 180, 270, true, false)
+	
+func CircleFillBottomLeftCorner(mobType, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, 0, delay, 180, 270, false, true)
+
+func CircleLeftCorner(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 225, 315, true, false)
+	
+func CircleFillLeftCorner(mobType, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, 0, delay, 225, 315, false, true)
+
+func CircleTopLeftCorner(mobType, amount, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, amount, delay, 270, 360, true, false)
+	
+func CircleFillTopLeftCorner(mobType, newStat, delay): 
+	CircleFullSpawner(mobType, newStat, 0, delay, 270, 360, false, true)
+#endregion
+
+#region Extra helpers
+func CircleCorners(mobType, amount, newStat, delay):
+	CircleTopRightCorner(mobType, amount, newStat, delay)
+	CircleTopLeftCorner(mobType, amount, newStat, delay)
+	CircleBottomRightCorner(mobType, amount, newStat, delay)
+	CircleBottomLeftCorner(mobType, amount, newStat, delay)
+
+func CircleDirections(mobType, amount, newStat, delay):
+	CircleTop(mobType, amount, newStat, delay)
+	CircleRight(mobType, amount, newStat, delay)
+	CircleBottom(mobType, amount, newStat, delay)
+	CircleLeft(mobType, amount, newStat, delay)
+
+#TODO spawn in a spiral, can already be done but this would help with that.
+#func CircleSpiral(mobType, amount, delay, startDeg, endDeg, turns): pass
+#endregion
 func CircleFullSpawner(mobType:int, newStats, amount:int, delay:float, 
 						startDeg:float, endDeg:float, separate:bool, fill:bool):
 	if startDeg < endDeg:	distance = (endDeg - startDeg) / 360.0
 	if startDeg > endDeg:	distance = (360 - (startDeg - endDeg)) / 360.0
 	
 	if fill:	amount = distance / step # Places as many enemies as will fit in the area specified
-	if separate:	step = distance / (amount - 1.0)
-	%SmallCircleFollow.progress_ratio = startDeg / 360.0
+	if separate: step = distance / (amount + 1)
+	%SmallCircleFollow.progress_ratio = (startDeg / 360.0) + step
 	for x in amount:
 		var spawn = ENEMY[mobType].instantiate()
 		spawn.mobName = ENEMY_NAME[mobType]
