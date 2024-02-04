@@ -181,8 +181,6 @@ func CircleSpiral(mobType, amountPerTurn, delay, startDeg, turns):
 		CircleFullSpawner(mobType, null, amountPerTurn, delay, startDeg, endDeg, true, false)
 		await get_tree().create_timer(turnDelay).timeout
 
-#TODO spawn in a spiral, can already be done but this would help with that.
-#func CircleSpiral(mobType, amount, delay, startDeg, endDeg, turns): pass
 #endregion
 func CircleFullSpawner(mobType:int, newStats, amount:int, delay:float, 
 						startDeg:float, endDeg:float, separate:bool, fill:bool):
@@ -211,6 +209,7 @@ func CircleFullSpawner(mobType:int, newStats, amount:int, delay:float,
 #endregion
 
 #region Line Spawning patterns
+# Not supposed to set the movement direction stat for these patterns
 #region Line Spawning Helpers
 func LineTop(mobType:int, newStats, amount:int, delay:float):
 	LineSpawner(mobType, newStats, amount, delay, DIRECTION.DOWN, true, false)
@@ -236,6 +235,7 @@ func LineLeft(mobType, newStats, amount:int, delay:float):
 func LineLeftFill(mobType:int, newStats, delay:float):
 	LineSpawner(mobType, newStats, 0, delay, DIRECTION.RIGHT, false, true)
 #endregion
+
 func LineSpawner(mobType:int, newStats, amount:int, delay:float, direction:DIRECTION, separate:bool, fill:bool):
 	var LINE = {
 		DIRECTION.UP : %SpawnBelowFollow,

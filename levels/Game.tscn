@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bwxrhcby3fb83"]
+[gd_scene load_steps=10 format=3 uid="uid://bwxrhcby3fb83"]
 
 [ext_resource type="PackedScene" uid="uid://b1bjgpxmfx8kp" path="res://characters/Player.tscn" id="1_6boc0"]
 [ext_resource type="Script" path="res://levels/Game.gd" id="1_httbb"]
 [ext_resource type="PackedScene" uid="uid://fjf4p4x84qg2" path="res://environment/trees/pine_tree.tscn" id="2_tmq84"]
+[ext_resource type="PackedScene" uid="uid://qjn61431rx55" path="res://environment/rocks/brown-rock.tscn" id="4_12r74"]
 
 [sub_resource type="Curve2D" id="Curve2D_cwgn1"]
 _data = {
@@ -235,6 +236,15 @@ position = Vector2(1300, 953)
 
 [node name="Tree15" parent="mapobjects/BottomObjects" instance=ExtResource("2_tmq84")]
 position = Vector2(291, 266)
+
+[node name="Rock" parent="." instance=ExtResource("4_12r74")]
+position = Vector2(-107, 956)
+
+[node name="Rock2" parent="." instance=ExtResource("4_12r74")]
+position = Vector2(-107, 897)
+
+[node name="Rock3" parent="." instance=ExtResource("4_12r74")]
+position = Vector2(-107, 852)
 
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="Stopwatch" to="." method="_on_stopwatch_timeout"]
