@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cadb2r8v4k3ik"]
-
-[ext_resource type="Script" path="res://SpawningPatterns.gd" id="1_0x03e"]
-
-[node name="PatternSpawner" type="Node2D"]
-script = ExtResource("1_0x03e")

@@ -75,7 +75,7 @@ Settings/Show_Tooltips=true
 [application]
 
 config/name="Your First 2D Game With Godot 4: START (GDQuest)"
-run/main_scene="res://MainMenu.tscn"
+run/main_scene="res://levels/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.png"
 
@@ -92,6 +92,18 @@ project/assembly_name="Getting started with Godot 4"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/colorpicker_presets/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://characters/": "orange",
+"res://effects/": "pink",
+"res://enemies/": "red",
+"res://environment/": "green",
+"res://items/": "yellow",
+"res://levels/": "blue",
+"res://weapons/": "gray"
+}
 
 [input]
 
