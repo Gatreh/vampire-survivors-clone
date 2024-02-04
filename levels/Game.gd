@@ -1,6 +1,6 @@
 extends PatternSpawner
 
-@onready var death_scene = load("res://Restart.tscn")
+@onready var death_scene = load("res://levels/Restart.tscn")
 
 var time = 0
 var timeSeconds = 0
@@ -24,7 +24,7 @@ func _on_Restart_pressed():
 
 func _on_MainMenu_pressed():
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://MainMenu.tscn")
+	get_tree().change_scene_to_file("res://levels/MainMenu.tscn")
 
 #endregion
 
@@ -36,14 +36,17 @@ func _on_MainMenu_pressed():
 func _on_SpawnTimer():
 	if BetweenTime(0,0, 0,45):
 		Random(1, 0.0)
-	if BetweenTime(0,45, 1,30):
+	if BetweenTime(0,45, 1,0):
+		LineRight(SLIME, [["HEALTH", 1000],["LIFETIME", 20.0]], 15, 0.0 )
+	if BetweenTime(1,0, 1,30):
 		Random(2, 0.5)
 	if AfterTime(1, 30):
 		Random(3, 0.33)
 	if AtTime(1, 0):
-		var stats = [["SPEED", 500], ["MOVE_TYPE", DIRECTION.MIDDLE], ["LIFETIME", 5.0]]
-		Circle(SLIME, 10, stats, 0.00)
-		Circle(BAT, 9, stats, 0.00)
+		var stats = [["SPEED", 100], ["MOVE_TYPE", DIRECTION.MIDDLE], ["LIFETIME", 6.0]]
+		Circle(SLIME, 12, stats, 0.00)
+		Circle(BAT, 13, stats, 0.00)
+		
 #endregion
 
 func _on_stopwatch_timeout():

@@ -13,7 +13,7 @@ const ENEMY_NAME = {
 enum {SLIME, BAT}
 enum DIRECTION {PLAYER, MIDDLE, HOVER, UP, RIGHT, DOWN, LEFT}
 
-var distance = 0	# The total distance between point a and point b
+var distance = 0.0	# The total distance between point a and point b
 var step = 0.01226 		# The space between each spawned mobType
 
 #Pass array and mob to this function to override base stat
@@ -25,7 +25,7 @@ func _set_stats(spawn, newStats):
 #region Random spawning pattern
 func Random(amount, delay): 
 	for x in amount:
-		RandomFullSpawner(randi_range(0, ENEMY.size() -1), null, 1, 0.00)
+		RandomFullSpawner(randi_range(0, ENEMY.size() -1), [], 1, 0.00)
 		if delay > 0.00:
 			await get_tree().create_timer(delay).timeout
 
@@ -33,7 +33,7 @@ func RandomFullSpawner(mobType: int, newStats, amount: int, delay: float):
 	for x in range(amount):
 		var spawn = ENEMY[mobType].instantiate()
 		spawn.mobName = ENEMY_NAME[mobType]
-		if newStats != null:
+		if newStats.size() != 0:
 			_set_stats(spawn, newStats)
 		%SpawnCircleFollow.progress_ratio = randf()
 		spawn.global_position = %SpawnCircleFollow.global_position
@@ -69,19 +69,19 @@ func CircleLeftFill(mobType, newStat, delay):
 func CircleRight(mobType, amount, newStat, delay): 
 	CircleFullSpawner(mobType, newStat, amount, delay, 0, 180, true, false)
 	
-func CircleRightFill(mobType, amount, newStat, delay): 
+func CircleRightFill(mobType, newStat, delay): 
 	CircleFullSpawner(mobType, newStat, 0, delay, 0, 180, false, true)
 
 func CircleTop(mobType, amount, newStat, delay): 
 	CircleFullSpawner(mobType, newStat, amount, delay, 270, 90, true, false)
 	
-func CircleFillTop(mobType, amount, newStat, delay): 
+func CircleFillTop(mobType, newStat, delay): 
 	CircleFullSpawner(mobType, newStat, 0, delay, 270, 90, false, true)
 
 func CircleBottom(mobType, amount, newStat, delay): 
 	CircleFullSpawner(mobType, newStat, amount, delay, 90, 270, true, false)
 	
-func CircleFillBottom(mobType, amount, newStat, delay): 
+func CircleFillBottom(mobType, newStat, delay): 
 	CircleFullSpawner(mobType, newStat, 0, delay, 90, 270, false, true)
 
 func CircleTopRight(mobType, amount, newStat, delay): 
@@ -172,11 +172,22 @@ func CircleDirections(mobType, amount, newStat, delay):
 	CircleBottom(mobType, amount, newStat, delay)
 	CircleLeft(mobType, amount, newStat, delay)
 
+func CircleSpiral(mobType, amountPerTurn, delay, startDeg, turns):
+	var turnDelay = delay * amountPerTurn
+	var endDeg = startDeg - 1
+	if endDeg <= -1:
+		endDeg = 360
+	for turn in turns:
+		CircleFullSpawner(mobType, null, amountPerTurn, delay, startDeg, endDeg, true, false)
+		await get_tree().create_timer(turnDelay).timeout
+
 #TODO spawn in a spiral, can already be done but this would help with that.
 #func CircleSpiral(mobType, amount, delay, startDeg, endDeg, turns): pass
 #endregion
 func CircleFullSpawner(mobType:int, newStats, amount:int, delay:float, 
 						startDeg:float, endDeg:float, separate:bool, fill:bool):
+	if startDeg < 0: startDeg = 0
+	if endDeg < 0: endDeg = 360
 	if startDeg < endDeg:	distance = (endDeg - startDeg) / 360.0
 	if startDeg > endDeg:	distance = (360 - (startDeg - endDeg)) / 360.0
 	
@@ -186,7 +197,7 @@ func CircleFullSpawner(mobType:int, newStats, amount:int, delay:float,
 	for x in amount:
 		var spawn = ENEMY[mobType].instantiate()
 		spawn.mobName = ENEMY_NAME[mobType]
-		if newStats != null:
+		if newStats.size() != 0:
 			_set_stats(spawn, newStats)
 		spawn.global_position = %SpawnCircleFollow.global_position
 		add_child(spawn)
@@ -200,5 +211,50 @@ func CircleFullSpawner(mobType:int, newStats, amount:int, delay:float,
 #endregion
 
 #region Line Spawning patterns
+#region Line Spawning Helpers
+func LineTop(mobType:int, newStats, amount:int, delay:float):
+	LineSpawner(mobType, newStats, amount, delay, DIRECTION.DOWN, true, false)
 
+func LineTopFill(mobType:int, newStats, delay:float):
+	LineSpawner(mobType, newStats, 0, delay, DIRECTION.DOWN, false, true)
+
+func LineRight(mobType, newStats, amount:int, delay:float):
+	LineSpawner(mobType, newStats, amount, delay, DIRECTION.LEFT, true, false)
+
+func LineRightFill(mobType:int, newStats, delay:float):
+	LineSpawner(mobType, newStats, 0, delay, DIRECTION.LEFT, false, true)
+
+func LineBottom(mobType, newStats, amount:int, delay:float):
+	LineSpawner(mobType, newStats, amount, delay, DIRECTION.UP, true, false)
+
+func LineBottomFill(mobType:int, newStats, delay:float):
+	LineSpawner(mobType, newStats, 0, delay, DIRECTION.UP, false, true)
+
+func LineLeft(mobType, newStats, amount:int, delay:float):
+	LineSpawner(mobType, newStats, amount, delay, DIRECTION.RIGHT, true, false)
+
+func LineLeftFill(mobType:int, newStats, delay:float):
+	LineSpawner(mobType, newStats, 0, delay, DIRECTION.RIGHT, false, true)
+#endregion
+func LineSpawner(mobType:int, newStats, amount:int, delay:float, direction:DIRECTION, separate:bool, fill:bool):
+	var LINE = {
+		DIRECTION.UP : %SpawnBelowFollow,
+		DIRECTION.RIGHT : %SpawnLeftFollow,
+		DIRECTION.DOWN : %SpawnAboveFollow,
+		DIRECTION.LEFT : %SpawnRightFollow
+	}
+	distance = 1.0
+	if fill: amount = distance / step
+	if separate: step = distance / (amount + 1)
+	newStats.append(["MOVE_TYPE", direction])
+	for x in amount:
+		var spawn = ENEMY[mobType].instantiate()
+		spawn.mobName = ENEMY_NAME[mobType]
+		if newStats.size() != 0:
+			_set_stats(spawn, newStats)
+		spawn.global_position = LINE[direction].global_position
+		add_child(spawn)
+		LINE[direction].progress_ratio += step
+		if delay > 0.00:
+			await get_tree().create_timer(delay).timeout
 #endregion
