@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://qjn61431rx55"]
+
+[ext_resource type="Texture2D" uid="uid://b7rhtttevhxtj" path="res://characters/ground_shadow.png" id="1_ftkg5"]
+[ext_resource type="Texture2D" uid="uid://cvn1p7wu0nel" path="res://environment/rocks/brown-rock.png" id="2_a3qgt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eyycr"]
+radius = 37.0135
+
+[node name="Rock" type="StaticBody2D"]
+collision_layer = 4
+
+[node name="GroundShadow" type="Sprite2D" parent="."]
+modulate = Color(0.152941, 0.152941, 0.152941, 0.403922)
+position = Vector2(2.38419e-07, 1.5)
+scale = Vector2(0.952381, 1.05769)
+texture = ExtResource("1_ftkg5")
+
+[node name="Brown-rock" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_a3qgt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_eyycr")
