@@ -1,6 +1,6 @@
 extends Node2D
 class_name PatternSpawner
-
+# comment for testing
 const ENEMY = {
 	SLIME: preload("res://enemies/scenes/Slime_Mob.tscn"),
 	BAT: preload("res://enemies/scenes/Bat_Mob.tscn")
@@ -18,7 +18,7 @@ var step = 0.01226 		# The space between each spawned mobType
 
 #Pass array and mob to this function to override base stat
 #Array should be two dimensional with name like ["SPEED", 2000]
-func _set_stats(spawn, newStats):
+func SetNewStats(spawn, newStats):
 	for stat in newStats:
 		spawn.STATS[stat[0]] = stat[1]
 
@@ -34,7 +34,7 @@ func RandomFullSpawner(mobType: int, newStats, amount: int, delay: float):
 		var spawn = ENEMY[mobType].instantiate()
 		spawn.mobName = ENEMY_NAME[mobType]
 		if newStats.size() != 0:
-			_set_stats(spawn, newStats)
+			SetNewStats(spawn, newStats)
 		%SpawnCircleFollow.progress_ratio = randf()
 		spawn.global_position = %SpawnCircleFollow.global_position
 		add_child(spawn)
@@ -196,7 +196,7 @@ func CircleFullSpawner(mobType:int, newStats, amount:int, delay:float,
 		var spawn = ENEMY[mobType].instantiate()
 		spawn.mobName = ENEMY_NAME[mobType]
 		if newStats.size() != 0:
-			_set_stats(spawn, newStats)
+			SetNewStats(spawn, newStats)
 		spawn.global_position = %SpawnCircleFollow.global_position
 		add_child(spawn)
 		if %SpawnCircleFollow.progress_ratio + step > 1:
@@ -251,7 +251,7 @@ func LineSpawner(mobType:int, newStats, amount:int, delay:float, direction:DIREC
 		var spawn = ENEMY[mobType].instantiate()
 		spawn.mobName = ENEMY_NAME[mobType]
 		if newStats.size() != 0:
-			_set_stats(spawn, newStats)
+			SetNewStats(spawn, newStats)
 		spawn.global_position = LINE[direction].global_position
 		add_child(spawn)
 		LINE[direction].progress_ratio += step
