@@ -1,6 +1,6 @@
 extends Node2D
 class_name PatternSpawner
-# comment for testing
+
 const ENEMY = {
 	SLIME: preload("res://enemies/scenes/Slime_Mob.tscn"),
 	BAT: preload("res://enemies/scenes/Bat_Mob.tscn")
