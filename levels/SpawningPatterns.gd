@@ -25,7 +25,7 @@ func _set_stats(spawn, newStats):
 #region Random spawning pattern
 func Random(amount, delay): 
 	for x in amount:
-		RandomFullSpawner(randi_range(0, ENEMY.size() -1), [], 1, 0.00)
+		RandomFullSpawner(randi() % ENEMY.size(), [], 1, 0.00)
 		if delay > 0.00:
 			await get_tree().create_timer(delay).timeout
 

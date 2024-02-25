@@ -1,6 +1,6 @@
 extends Mob_Behavior
 
-func SetStats():
+func SetDefaultStats():
 	DEFAULT_STATS = {
 		"HEALTH" : 130,
 		"DAMAGE": 5,

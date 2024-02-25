@@ -100,6 +100,15 @@ autostart = true
 [node name="mapobjects" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="Rock" parent="mapobjects" instance=ExtResource("4_12r74")]
+position = Vector2(-107, 956)
+
+[node name="Rock2" parent="mapobjects" instance=ExtResource("4_12r74")]
+position = Vector2(-107, 897)
+
+[node name="Rock3" parent="mapobjects" instance=ExtResource("4_12r74")]
+position = Vector2(-107, 852)
+
 [node name="CornerTrees" type="Node2D" parent="mapobjects"]
 y_sort_enabled = true
 
@@ -236,15 +245,6 @@ position = Vector2(1300, 953)
 
 [node name="Tree15" parent="mapobjects/BottomObjects" instance=ExtResource("2_tmq84")]
 position = Vector2(291, 266)
-
-[node name="Rock" parent="." instance=ExtResource("4_12r74")]
-position = Vector2(-107, 956)
-
-[node name="Rock2" parent="." instance=ExtResource("4_12r74")]
-position = Vector2(-107, 897)
-
-[node name="Rock3" parent="." instance=ExtResource("4_12r74")]
-position = Vector2(-107, 852)
 
 [connection signal="health_depleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="timeout" from="Stopwatch" to="." method="_on_stopwatch_timeout"]

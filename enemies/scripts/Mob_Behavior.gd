@@ -36,7 +36,7 @@ func _ready():
 	mob = get_node("%" + mobName)
 	mob.play_walk()
 	
-	SetStats()
+	SetDefaultStats()
 	for stat in STATS:
 		if STATS[stat] == 0:
 			STATS[stat] = DEFAULT_STATS[stat] * difficulty
@@ -46,7 +46,7 @@ func _ready():
 func _physics_process(_delta):
 	Move()
 
-func SetStats(): 	# Is defined in the specific mob
+func SetDefaultStats(): 	# Is defined in the specific mob
 	pass			# Used to set default stats if the mob doesn't have any when spawned
 
 #region Movement
