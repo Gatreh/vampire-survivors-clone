@@ -3,7 +3,7 @@ extends CharacterBody2D
 signal health_depleted
 
 @onready var character := %HappyBoo
-
+@export var immortal:bool = false
 var STATS = {
 	"MAX_HEALTH": 100.0,
 	"HEALTH": 100.0,
@@ -27,7 +27,7 @@ func _physics_process(delta):
 	
 	# Damage to player
 	var overlapping_mobs = %HurtBox.get_overlapping_bodies()
-	if overlapping_mobs.size() > 0 && $Timer.is_stopped():
+	if overlapping_mobs.size() > 0 && $Timer.is_stopped() && !immortal:
 		$Timer.start()			# Configurable iframes
 		for enemy in overlapping_mobs:
 			STATS.HEALTH -= enemy.STATS.DAMAGE

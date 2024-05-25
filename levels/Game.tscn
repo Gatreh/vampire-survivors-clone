@@ -50,6 +50,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Player" parent="." instance=ExtResource("1_6boc0")]
 position = Vector2(948, 508)
+immortal = true
 
 [node name="SpawnPaths" type="Node2D" parent="Player"]
 

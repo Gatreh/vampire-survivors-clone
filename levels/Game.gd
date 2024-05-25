@@ -31,21 +31,21 @@ func _on_MainMenu_pressed():
 #region Mob spawning handling
 # Spawntimer will use times from time(m, s) or conditions to summon mobs.
 # Below are some examples
-#func CircleFullSpawner(mobType:int, newStats, amount:int, delay:float, 
-#						startDeg:float, endDeg:float, separate:bool, fill:bool):
+#func Circle(mobType:int, spawnArea:AREA, amount:int = 1,
+#			 spawnMode:SPAWN_MODE = SPAWN_MODE.SEPARATE, newStats:Array = [], delay:float = 0.0)
 func _on_SpawnTimer():
 	if BetweenTime(0,0, 0,45):
-		Random(1, 0.0)
+		Random()
 	if BetweenTime(0,45, 1,0):
-		LineRight(SLIME, [["HEALTH", 1000],["LIFETIME", 20.0]], 15, 0.0 )
+		Line(SLIME, 15, AREA.TOP, [["HEALTH", 1000],["LIFETIME", 20.0]])
 	if BetweenTime(1,0, 1,30):
 		Random(2, 0.5)
 	if AfterTime(1, 30):
 		Random(3, 0.33)
 	if AtTime(1, 0):
-		var stats = [["SPEED", 100], ["MOVE_TYPE", DIRECTION.MIDDLE], ["LIFETIME", 6.0]]
-		Circle(SLIME, 12, stats, 0.00)
-		Circle(BAT, 13, stats, 0.00)
+		var stats = [["SPEED", 100], ["MOVE_TYPE", MOVEMENT_DIRECTION.MIDDLE], ["LIFETIME", 6.0]]
+		Circle(SLIME, AREA.FULL, 12, SPAWN_MODE.SEPARATE, stats)
+		Circle(BAT, AREA.FULL, 13, SPAWN_MODE.SEPARATE, stats)
 		
 #endregion
 
