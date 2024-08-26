@@ -11,7 +11,7 @@ var STATS = {
 }
 
 func _ready():
-	updateHealthBar()
+	UpdateHealthBar()
 
 func _physics_process(delta):
 	# Movement
@@ -31,11 +31,11 @@ func _physics_process(delta):
 		$Timer.start()			# Configurable iframes
 		for enemy in overlapping_mobs:
 			STATS.HEALTH -= enemy.STATS.DAMAGE
-		updateHealthBar()
+		UpdateHealthBar()
 		if STATS.HEALTH <= 0:
 			health_depleted.emit()
 
-func updateHealthBar():
+func UpdateHealthBar():
 	%HealthBar.max_value = STATS.MAX_HEALTH
 	%HealthBar.value = STATS.HEALTH
 	%HealthLabel.text = str(%HealthBar.value) + "/" + str(%HealthBar.max_value)

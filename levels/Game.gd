@@ -8,14 +8,14 @@ var timeMinutes = 0
 
 
 func _ready():
-	updateTimer()
+	UpdateTimer()
 
 #region Game over handling
 func _on_player_health_depleted():
 	var deathMenu = death_scene.instantiate()
 	add_child(deathMenu)
-	deathMenu.get_node("%RestartButton").connect("pressed", Callable(self, "_on_Restart_pressed"))
-	deathMenu.get_node("%MainMenuButton").connect("pressed", Callable(self, "_on_MainMenu_pressed"))
+	(deathMenu.get_node("%RestartButton") as Button).pressed.connect(_on_Restart_pressed)
+	(deathMenu.get_node("%MainMenuButton") as Button).pressed.connect(_on_MainMenu_pressed)
 	get_tree().paused = true
 
 func _on_Restart_pressed():
@@ -55,12 +55,10 @@ func _on_stopwatch_timeout():
 		timeSeconds = 0
 		timeMinutes += 1
 	time += 1
-	updateTimer()
+	UpdateTimer() 
 
-func updateTimer():
-	$Player/%TimerLabel.text = (
-		"0" + str(timeMinutes) if timeMinutes < 10 else str(timeMinutes)) + ":" + (
-		"0" + str(timeSeconds) if timeSeconds < 10 else str(timeSeconds))
+func UpdateTimer():
+	$Player/%TimerLabel.text = str(timeMinutes).pad_zeros(2) + ":" + str(timeSeconds).pad_zeros(2)
 
 # Time calculator helpers
 func AtTime(minutes, seconds) -> bool:

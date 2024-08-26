@@ -4,7 +4,8 @@ var STATS = {
 	"DAMAGE": 0,
 	"SPEED": 0,
 	"RANGE": 0.0,
-	"CRIT": false
+	"CRIT": false,
+	"CRIT_MULTIPLIER": 2
 }
 
 var travelDistance = 0 # Distance the bullet has traveled
@@ -20,7 +21,7 @@ func _physics_process(delta):
 func _on_body_entered(body):
 	queue_free()
 	if body.has_method("TakeDamage"):
-		var critDamage = 1
 		if STATS.CRIT == true:
-			critDamage = 2
-		body.TakeDamage(STATS.DAMAGE * critDamage, STATS.CRIT)
+			body.TakeDamage(STATS.DAMAGE * STATS.CRIT_MULTIPLIER, STATS.CRIT)
+		else:
+			body.TakeDamage(STATS.DAMAGE, STATS.CRIT)

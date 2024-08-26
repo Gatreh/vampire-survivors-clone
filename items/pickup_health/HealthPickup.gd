@@ -10,5 +10,5 @@ func _on_body_entered(body):
 			body.STATS.HEALTH += 10
 		else:
 			body.STATS.HEALTH = body.STATS.MAX_HEALTH
-		body.updateHealthBar()
+		body.UpdateHealthBar()
 		queue_free()

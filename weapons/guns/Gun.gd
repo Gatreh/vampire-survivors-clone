@@ -26,7 +26,7 @@ func _physics_process(delta):
 
 func Shoot():
 	var new_bullet = PROJECTTILE.instantiate()
-	new_bullet.STATS.DAMAGE = SetDamage()
+	new_bullet.STATS.DAMAGE = GetDamage()
 	if WEAPON_STATS.CRIT_RATE >= randf():
 		new_bullet.STATS.CRIT = true
 	new_bullet.STATS.SPEED = WEAPON_STATS.PROJECTILE_SPEED
@@ -35,7 +35,7 @@ func Shoot():
 	new_bullet.global_rotation_degrees = %ShootingPoint.global_rotation_degrees
 	%ShootingPoint.add_child(new_bullet)
 
-func SetDamage() -> int:
+func GetDamage() -> int:
 	return randi_range(WEAPON_STATS.DAMAGE, WEAPON_STATS.MAX_DAMAGE)
 
 # Flip sprite based on which direction it's pointing and adjust position

@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var mob = new()
 
 const DEATH_SCENE = preload("res://effects/smoke_explosion/smoke_explosion.tscn")
+const DAMAGE_NUMBER = preload("res://effects/damage_text_hover/damage_text_hover.tscn")
 const DROPS = {
 	"HEALTH": preload("res://items/pickup_health/HealthPickup.tscn"),
 	"HEALTH_CHANCE": 0.05
@@ -36,7 +37,7 @@ func _ready():
 	mob = get_node("%" + mobName)
 	mob.play_walk()
 	
-	SetDefaultStats()
+	ApplyDefaultStats()
 	for stat in STATS:
 		if STATS[stat] == 0:
 			STATS[stat] = DEFAULT_STATS[stat] * difficulty
@@ -46,7 +47,7 @@ func _ready():
 func _physics_process(_delta):
 	Move()
 
-func SetDefaultStats(): 	# Is defined in the specific mob
+func ApplyDefaultStats(): 	# Is defined in the specific mob
 	pass			# Used to set default stats if the mob doesn't have any when spawned
 
 #region Movement
@@ -71,7 +72,7 @@ func Move():
 
 #region Damage
 func TakeDamage(damage, crit):
-	var damageNumber = load("res://effects/damage_text_hover/damage_text_hover.tscn").instantiate()
+	var damageNumber = DAMAGE_NUMBER.instantiate()
 	damageNumber.labelText = str(damage)
 	if crit: damageNumber.crit = true
 	STATS.HEALTH -= damage
@@ -90,8 +91,9 @@ func Kill():
 	var smoke = DEATH_SCENE.instantiate()
 	get_parent().add_child(smoke)
 	smoke.global_position = global_position
+	
 	if randf() < DROPS.HEALTH_CHANCE:
 		var health = DROPS.HEALTH.instantiate()
-		get_parent().add_child(health)
+		get_parent().add_child.call_deferred(health)
 		health.global_position = global_position
 #endregion
